@@ -7,3 +7,4 @@ JS Notes
 - let: cannot be accessed outside the initial block and can be reassigned
 - const: cannot be accessed outside the initial block and cannot be reassigned
 - var, let and const assigned in a function cannot be accessed outside of the function
+- switch works only with values, not expressions, for expressions we use if-else, for values - switch
