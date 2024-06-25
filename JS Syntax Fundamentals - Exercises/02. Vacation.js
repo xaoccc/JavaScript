@@ -1,17 +1,17 @@
 function vacation(num, type, day) {
-    var customers = {"Students": {"Friday": 8.45, "Saturday": 9.80, "Sunday": 10.46},
+    let customers = {"Students": {"Friday": 8.45, "Saturday": 9.80, "Sunday": 10.46},
                     "Business": {"Friday": 10.90, "Saturday": 15.60, "Sunday": 16},
                     "Regular": {"Friday": 15, "Saturday": 20, "Sunday": 22.50}};
 
-    var students_discount = 0.15;
-    var business_discount = 10; // 10 people get free vacation if the total number if 100 or more
-    var regular_discount = 0.05;
+    let students_discount = 0.15;
+    let business_discount = 10; // 10 people get free vacation if the total number if 100 or more
+    let regular_discount = 0.05;
 
-    for (var customer in customers) {
+    for (let customer in customers) {
         if (customer === type) {
-            for (var dayType in customers[customer]) {
+            for (let dayType in customers[customer]) {
                 if (dayType === day) {
-                    var price = customers[customer][dayType] * num;
+                    let price = customers[customer][dayType] * num;
                     if (type === "Students" && num >= 30) {
                         price = price - (price * students_discount);
                     } else if (type === "Business" && num >= 100) {
@@ -26,4 +26,3 @@ function vacation(num, type, day) {
     }
 }
 
-vacation(110, "Business", "Sunday");

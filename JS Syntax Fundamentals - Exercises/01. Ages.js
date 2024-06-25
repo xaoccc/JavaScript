@@ -4,7 +4,7 @@ function person_age(age) {
     for (var age_category in ages_categories) {
         if (age >= ages_categories[age_category][0] && age <= ages_categories[age_category][1]) {
             console.log(age_category);
-            return; // If we found the category, we stop the loop
+            return; // If we found the category, we stop the loop and exit the function
         }
     }
     console.log("out of bounds"); // If the age is not in any category
