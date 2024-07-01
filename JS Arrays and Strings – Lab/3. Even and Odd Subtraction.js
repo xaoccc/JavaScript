@@ -15,6 +15,3 @@ function evenAndOddSubtraction(arr) {
 
     console.log((2 * evenSum) - arr.reduce((a, b) => a + b, 0));
 }
-
-
-evenAndOddSubtraction([1, 2, 3, 4, 5, 10]); // 3
