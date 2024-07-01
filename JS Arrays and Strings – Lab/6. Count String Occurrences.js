@@ -1,12 +1,7 @@
 function countStringOccurences(text, substring) {
-    words_arr = text.split(" ");
-    let stringOccurences = 0;
-    
-    for (word of words_arr) {
-        if (word == substring) {
-            stringOccurences += 1;
-        }
-    }
-    console.log(stringOccurences)
+    let stringOccurences = text.match(new RegExp(`\\b${substring}\\b`, 'g'));
+    console.log(stringOccurences ? stringOccurences.length : 0);
 }
+
+
 
