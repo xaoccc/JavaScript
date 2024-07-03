@@ -1,8 +1,8 @@
 function revealWords(words, text) {
     words = words.split(', ');
-    for (let word of words) {
-        let stars = '*'.repeat(word.length);
-        text = text.replace(stars, word);
-    }
+    words.forEach(word => {
+        text = text.replace('*'.repeat(word.length), word);
+    });
     console.log(text);
 }
+
