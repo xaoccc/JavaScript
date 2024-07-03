@@ -8,17 +8,10 @@ function pyramid(base, increment) {
       }
 
     height = Math.floor(Math.ceil(base / 2) * increment);
-
-
     for (let i=base-2; i>0; i-=2) {
         counter += 1;
         mats.stone += i**2;
-        if ((counter) % 5 !== 0) { 
-            mats.marble += 4 * (i+1); 
-        } 
-        else { 
-            mats.lapis_Lazuli += 4 * (i+1); 
-        }        
+        (counter % 5 === 0) ? mats.lapis_Lazuli += 4 * (i+1) : mats.marble += 4 * (i+1);       
     }
 
     mats.gold = (base % 2 === 0) ? 4 : 1;
@@ -27,7 +20,4 @@ function pyramid(base, increment) {
         console.log(`${capitalize(mat)} required: ${Math.ceil(mats[mat] * increment)}`);
     }
     console.log(`Final pyramid height: ${height}`)
-
 }
-
-pyramid(23,0.5);
