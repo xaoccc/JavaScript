@@ -34,7 +34,7 @@ let mySortedArray = Object.entries(addressBook).sort((a, b) => b[0].localeCompar
 
 - a[0]/b[0] is the key, a[1]/b[1] would be the value
 - we can sort either by key or by value. Key are unique, so it makes no sense in sorting by both keys and values
-- for nested arrays would be a[0...n]/b[0...n]
+- for nested arrays would be a[0...n]/b[0...n] - 0...n is the index of the element we would like to sort
 
 ### Classes
 a[0]/b[0] can be replaced with a.classProperty/b.classProperty:
