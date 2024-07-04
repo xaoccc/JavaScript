@@ -3,20 +3,30 @@ JavaScript basic tasks and training
 
 JS Notes
 
-- var: can be accesed outside the initial block and can be reassigned
+- var: can be accesed outside the initial block and can be reassigned. DEPRECATED!
 - let: cannot be accessed outside the initial block and can be reassigned
-- const: cannot be accessed outside the initial block and cannot be reassigned
+- const: cannot be accessed outside the initial block and cannot be reassigned. Used in 90% of real projects.
 - var, let and const assigned in a function cannot be accessed outside of the function
 - switch works only with values, not expressions, for expressions we use if-else, for values - switch
 
-### forEach loop
+### for...in
+- works with indexes
+
+### for...of
+- works with elements
+- for objects we can use 
+    - for [key, value] of Object.entries(myObject) - loop through keys and values
+    - for key of Object.keys(myObject) - loop through keys 
+    - for values of Object.values(myObject) - loop through values
+
+### forEach 
 - designed specifically for arrays
 - use:
 myArray.forEach(element => { result; });
 - use with ternary operator:
 myArray.forEach(element => { (condition) ? result if true : result if false; });
 
-### Sorting
+### Sorting Arrays and Objects
 - it works only for arrays:
 - if we want to sort an object, we can convert it to an array
 
@@ -36,7 +46,7 @@ let mySortedArray = Object.entries(addressBook).sort((a, b) => b[0].localeCompar
 - we can sort either by key or by value. Key are unique, so it makes no sense in sorting by both keys and values
 - for nested arrays would be a[0...n]/b[0...n] - 0...n is the index of the element we would like to sort
 
-### Classes
+### Sorting Classes
 a[0]/b[0] can be replaced with a.classProperty/b.classProperty:
 
 let sortedClassInstancesList = ClassInstancesList.sort((a, b) => {
@@ -51,3 +61,11 @@ let sortedClassInstancesList = ClassInstancesList.sort((a, b) => {
     // Number! If secondProperties are equal, sort by trirdProperty (ascending)
     return a.trirdProperty - b.trirdProperty;
 });
+
+### Filtering Objects
+1. Convert the object into nested lists, using Object.entries(obj) [[a1, a2], [b1, b2]...[an, bn]], where a1, b1, bn are the object keys and a2, b2, bn are the values
+2. Filter the data, using filter()
+3. Convert the filtered list, using Object.fromEntries()
+- Note that filtering objects cannot be done using Object.keys(obj) or Object.values(obj), because the result would be an array unfit for the method Object.fromEntries()
+#### Example:
+    let filteredObj = Object.fromEntries(Object.entries(obj).filter(([key, value]) => value % 2 !== 0));
