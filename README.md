@@ -69,3 +69,20 @@ let sortedClassInstancesList = ClassInstancesList.sort((a, b) => {
 - Note that filtering objects cannot be done using Object.keys(obj) or Object.values(obj), because the result would be an array unfit for the method Object.fromEntries()
 #### Example:
     let filteredObj = Object.fromEntries(Object.entries(obj).filter(([key, value]) => value % 2 !== 0));
+
+
+### DOM
+1. NodeList and HTMLCollection:
+#### NodeList
+- Definition: NodeList is a collection of nodes (elements, text nodes, etc.) returned by methods like querySelectorAll and childNodes.
+- Mutability: NodeList is generally static, meaning it does not automatically update if the DOM changes after it is created.
+- Methods: It supports methods like forEach and indexing to access its elements.
+- Common Methods: forEach, item(index), length, and array indexing (nodeList[index]).
+- Examples: Returned by querySelectorAll, childNodes, parentNode.childNodes, etc.
+#### HTMLCollection
+- Definition: HTMLCollection is a collection of HTML elements returned by methods like getElementsByTagName and getElementsByClassName.
+- Mutability: HTMLCollection is live, meaning it updates automatically when the DOM changes.
+- Methods: It supports similar methods to NodeList, but also automatically updates to reflect changes in the DOM.
+- Common Methods: item(index), length, and array indexing (htmlCollection[index]).
+- Examples: Returned by getElementsByTagName, getElementsByClassName, children, etc.
+- You can use array methods like forEach, map, filter, etc., with an HTMLCollection as well as with an array. Although HTMLCollection is not technically an array, it behaves similarly in many respects due to its array-like nature.
