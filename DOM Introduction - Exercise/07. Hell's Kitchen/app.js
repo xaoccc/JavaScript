@@ -13,57 +13,58 @@ function solve() {
       }
 
       salaries() {
-         return Object.entries(this.employees).sort((a, b) => a[1] + b[1]);
+         return Object.entries(this.employees).sort((a, b) => b[1] - a[1]);
       }
 
-      bestSalary() {
-         return Object.values(this.employees).sort((a, b) => a + b)[0].toFixed(2);
-      }
+
    }
 
    function onClick () {
-      let input = document.getElementsByTagName('textarea')[0];
-      let inputList = input.value.substring(1,(input.value.length-1)).split('",');
-      
-      for (i in inputList) {
-         inputList[i] = inputList[i].trim().replace(/[\"\]\[]/g, '');
-      }
+
+      let inputList = JSON.parse(document.querySelector('textarea').value);   
       
       let rData = [];
       let restaurants = [];
       let currentEmployeesList = {};
       let bestRestaurant = {name:'', averageSalary: 0, salaries: {}, bestSalary: 0};
-      let bestEmployees = {};
-      
+      let bestEmployees = {};      
 
-      for (line of inputList) {
+      for (let line of inputList) {
          rData.push(line.split(' - '));
       }
 
-      for (rest of rData) {
+      for (let rest of rData) {
          currentEmployeesList = {};
-         for (e of rest[1].split(', ')) {
+         for (let e of rest[1].split(', ')) {
             let [name, salary] = e.split(' ');
             currentEmployeesList[name] = Number(salary);
          }
 
-         restaurants.push(new Restaurant(rest[0]))
-         restaurants[restaurants.length - 1].employees = currentEmployeesList;
+         let restaurant = restaurants.find(restaurant => restaurant.name === rest[0]);
+
+         if (restaurant) {
+            Object.assign(restaurant.employees, currentEmployeesList);
+
+         } else {
+            restaurants.push(new Restaurant(rest[0]))
+            restaurants[restaurants.length - 1].employees = currentEmployeesList;
+         }
       }
 
-      for (r of restaurants) {
-         console.log(r);
-         if (r.averageSalary() > bestRestaurant.averageSalary) {
-            bestRestaurant.averageSalary = r.averageSalary();
+      for (let r of restaurants) {
+         if (Number(r.averageSalary()) > bestRestaurant.averageSalary) {
+            bestRestaurant.averageSalary = Number(r.averageSalary()).toFixed(2);
             bestRestaurant.salaries = r.salaries();
-            bestRestaurant.bestSalary = r.bestSalary();
+            bestRestaurant.bestSalary = bestRestaurant.salaries[0][1].toFixed(2);
             bestRestaurant.name = r.name;
             bestEmployees = r.employees;
          }
+
       }
+
       document.querySelector('#bestRestaurant p').textContent = `Name: ${bestRestaurant.name} Average Salary: ${bestRestaurant.averageSalary} Best Salary: ${bestRestaurant.bestSalary}`
       
-      for (e of Object.entries(bestEmployees)) {      
+      for (e of Object.entries(bestEmployees).sort((a,b) => b[1] - a[1])) {      
          document.querySelector('#workers p').textContent += `Name: ${e[0]} With Salary: ${e[1]} `;
       }
    }
