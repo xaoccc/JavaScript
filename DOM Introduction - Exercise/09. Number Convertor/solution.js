@@ -19,28 +19,29 @@ function solve() {
     convertButton.addEventListener('click', () => {
         const numberInput = Number(document.getElementById('input').value);
         if (hexadecimal.selected) {
-            hexadecimalConverter(numberInput);
+            resultField.value = numberInput.toString(16).toUpperCase();
         } else if (binary.selected)  {
-            binaryConverter(numberInput);
+            resultField.value = numberInput.toString(2);
         } 
     }) 
-
-    function binaryConverter(numberInput, result = '') {
-        while (numberInput > 0) {
-            (numberInput % 2 === 0) ? result = '0' + result : result = '1' + result;
-            numberInput = Math.floor(numberInput / 2); 
-        }
-
-        resultField.value = result;
-    }
-
-    function hexadecimalConverter(numberInput, result = '') {
-        const hexa = ['A', 'B', 'C', 'D', 'E', 'F'];
-        while (numberInput > 0) {
-            (numberInput % 16 < 10) ? result = String(numberInput % 16) + result : result = hexa[(numberInput % 16) - 10] + result;
-            numberInput = Math.floor(numberInput / 16);  
-        }    
-
-        resultField.value = result;
-    }
 }
+
+//     function binaryConverter(numberInput, result = '') {
+//         while (numberInput > 0) {
+//             (numberInput % 2 === 0) ? result = '0' + result : result = '1' + result;
+//             numberInput = Math.floor(numberInput / 2); 
+//         }
+
+//         resultField.value = result;
+//     }
+
+//     function hexadecimalConverter(numberInput, result = '') {
+//         const hexa = ['A', 'B', 'C', 'D', 'E', 'F'];
+//         while (numberInput > 0) {
+//             (numberInput % 16 < 10) ? result = String(numberInput % 16) + result : result = hexa[(numberInput % 16) - 10] + result;
+//             numberInput = Math.floor(numberInput / 16);  
+//         }    
+
+//         resultField.value = result;
+//     }
+// 
