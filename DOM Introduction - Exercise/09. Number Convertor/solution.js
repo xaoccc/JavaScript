@@ -1,6 +1,6 @@
 
 function solve() {
-    const numberInput = document.getElementById('input').textContent;
+    
     const selectTo = document.getElementById('selectMenuTo');
     const binary = document.querySelector('#selectMenuTo option');
     const hexadecimal = document.createElement('option');
@@ -17,19 +17,32 @@ function solve() {
     hexadecimal.textContent = 'Hexadecimal';
 
     convertButton.addEventListener('click', () => {
-        resultField.textContent = 'test';
-        resultField.value = 'test';
-    } )
-   
+        const numberInput = Number(document.getElementById('input').value);
+        if (hexadecimal.selected) {
+            hexadecimalConverter(numberInput);
+        } else if (binary.selected)  {
+            binaryConverter(numberInput);
+        } 
+    } ) 
 
 
-    function binaryConverter () {
+    function binaryConverter(numberInput) {
         return;
     }
 
-    function hexadecimalConverter () {
-        return;
+    function hexadecimalConverter(numberInput) {
+        const hexa = ['A', 'B', 'C', 'D', 'E', 'F'];
+        let result = '';
+
+        while (numberInput > 0) {
+            (numberInput % 16 < 10) ? result = String(numberInput % 16) + result : result = hexa[(numberInput % 16) - 10] + result;
+            numberInput = Math.floor(numberInput / 16);  
+        }    
+
+        resultField.value = result;
     }
+
+
 
 
 }
