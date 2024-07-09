@@ -23,17 +23,19 @@ function solve() {
         } else if (binary.selected)  {
             binaryConverter(numberInput);
         } 
-    } ) 
+    }) 
 
+    function binaryConverter(numberInput, result = '') {
+        while (numberInput > 0) {
+            (numberInput % 2 === 0) ? result = '0' + result : result = '1' + result;
+            numberInput = Math.floor(numberInput / 2); 
+        }
 
-    function binaryConverter(numberInput) {
-        return;
+        resultField.value = result;
     }
 
-    function hexadecimalConverter(numberInput) {
+    function hexadecimalConverter(numberInput, result = '') {
         const hexa = ['A', 'B', 'C', 'D', 'E', 'F'];
-        let result = '';
-
         while (numberInput > 0) {
             (numberInput % 16 < 10) ? result = String(numberInput % 16) + result : result = hexa[(numberInput % 16) - 10] + result;
             numberInput = Math.floor(numberInput / 16);  
@@ -41,8 +43,4 @@ function solve() {
 
         resultField.value = result;
     }
-
-
-
-
 }
