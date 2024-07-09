@@ -18,6 +18,7 @@ function solve() {
 
     convertButton.addEventListener('click', () => {
         resultField.textContent = 'test';
+        resultField.value = 'test';
     } )
    
 
