@@ -1,26 +1,30 @@
-class Song {
-    constructor(type, name, time) {
-        this.type = type;
-        this.name = name;
-        this.time = time;
+function printSongs(songsArr) {
+    class Song {
+        constructor(typeList, name, time) {
+            this.typeList = typeList;
+            this.name = name;
+            this.time = time;
+        }
+    }
+
+    let songs = [];
+
+    songsArr = Number(songsArr.shift());
+    let typeSong = songsArr.pop();
+
+    for (let song of songsArr) {
+        let [typeListSong, nameSong, timeSong] = song.split('_');
+        let newSong = new Song(typeListSong, nameSong, timeSong);
+        songs.push(newSong);
+    }
+
+    if (typeSong === "all") {
+        songs.forEach(s => console.log(s.name));
+    } else {
+        let filteredSongs = songs.filter(s => s.typeList === typeSong);
+        filteredSongs.forEach(s => console.log(s.name));
     }
 }
-
-let songs = [];
-let songsNum = input.shift();
-
-for (i=0; i<songsNum; i++) {
-    let [type, name, time] = input[i].split('_');
-    songs.push(new Song(type, name, time));
-}
-
-for (let s of songs) {
-    if (input[input.length - 1] === 'all') {
-        console.log(s.name);
-    } else if (input[input.length - 1] === s.type) {
-        console.log(s.name);
-    }    
-}    
 
 
 
