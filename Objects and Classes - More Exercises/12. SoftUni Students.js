@@ -41,8 +41,6 @@ function students(input) {
         }
     }
 
-
-
     let sortedCourses = Object.values(courses).sort((a, b) => b.students.length - a.students.length);
  
     for (let course of sortedCourses) {
