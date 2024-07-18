@@ -15,3 +15,18 @@ let sumEvenIndex = nums.map((_, i) => (i % 2 === 0) ? nums[i] : 0).reduce((a, b)
 console.log(sumEvenIndex);
 let sumOddIndex = nums.map((_, i) => (i % 2 !== 0) ? nums[i] : 0).reduce((a, b) => a + b, 0);
 console.log(sumOddIndex);
+
+function test(input) {
+    return input.reduce((acc, curr, index) => {
+        if (curr < 2500){
+            let test = {[input[index-1]]: curr + 5000};
+            Object.assign(acc, test);         
+        }
+        
+        return acc;
+        
+        
+    }, {});
+}
+const result = test(['BMW', 2000, 'Audi', 5000, 'Lada', 500, 'Skoda', 3000]);
+console.log(result)
