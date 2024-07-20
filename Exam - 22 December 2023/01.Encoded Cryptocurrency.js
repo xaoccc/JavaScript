@@ -3,17 +3,25 @@ function crypto(input){
     input.slice(1).forEach((line) => {
         let[command, ...other] = line.split('?');
         if (command === 'Buy') {
-            console.log(message);
+
+            console.log(`The cryptocurrency is: ${message}`);
             process.exit();
         }
 
         switch (command) {
             case 'TakeEven':
-                message = message.split('').filter((letter) => message.indexOf(letter) % 2 === 0).join('');
+                message = message.split('').filter((letter, index) => index % 2 === 0).join('');
+                console.log(message);
                 break;
             case 'ChangeAll':
+                message = message.split(other[0]).join(other[1]);
+                console.log(message);
                 break;
             case 'Reverse':
+                if (message.indexOf(other[0]) > -1) {
+                    message = message.split(other[0]).join('') + other[0].split('').reverse().join('');
+                    console.log(message);
+                } else { console.log('error'); }
                 break;
             
         }
