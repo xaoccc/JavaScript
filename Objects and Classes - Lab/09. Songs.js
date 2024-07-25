@@ -6,10 +6,9 @@ function printSongs(songsArr) {
             this.time = time;
         }
     }
-
     let songs = [];
 
-    songsArr = Number(songsArr.shift());
+    songsArr.shift();
     let typeSong = songsArr.pop();
 
     for (let song of songsArr) {
@@ -18,12 +17,8 @@ function printSongs(songsArr) {
         songs.push(newSong);
     }
 
-    if (typeSong === "all") {
-        songs.forEach(s => console.log(s.name));
-    } else {
-        let filteredSongs = songs.filter(s => s.typeList === typeSong);
-        filteredSongs.forEach(s => console.log(s.name));
-    }
+    (typeSong === "all") ? songs.forEach(s => console.log(s.name)) : songs.filter(s => s.typeList === typeSong).forEach(s => console.log(s.name));
+    
 }
 
 
