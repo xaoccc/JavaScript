@@ -1,5 +1,4 @@
 function solve() {
-  //TODO...
   let answers = [];
   const correctAnswers = {0: 'onclick', 1: 'JSON.stringify()', 2: 'A programming API for HTML and XML documents'};
   let [correctNum, totalQuestions] = [0, 0];
@@ -36,8 +35,6 @@ function solve() {
     })
 
   })
-
-  
 
 
 
