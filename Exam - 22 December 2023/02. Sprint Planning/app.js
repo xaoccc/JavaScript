@@ -11,13 +11,6 @@ function solve() {
     let tasksData = {};
     let taskId = document.querySelector('#task-id');
     inputs = [inputs[2], inputs[0], inputs[1], inputs[3], inputs[4]];
-    const articleChildren = [
-        ['div', ['task-card-label', inputs[0].value.toLowerCase().split(' ').slice(0, 2).join('-')], '', ''], 
-        ['h3', ['task-card-title'], '', ''], 
-        ['p', ['task-card-description'], '', ''],                     
-        ['div', ['task-card-points'], 'Estimated at ', ' pts'], 
-        ['div', ['task-card-assignee'], 'Assigned to: ', '']
-    ]
 
     function disableFields() {
         inputs.forEach((field, index) => {
@@ -37,7 +30,14 @@ function solve() {
         let article = document.createElement('article');       
         points = Number(totalPts.textContent.match(/\d+(\.\d+)?/g));
         totalPts.textContent = `Total points ${points + Number(document.querySelector('#points').value)}pts` 
-        articles = Array.from(tasksSection.querySelectorAll('article'));        
+        articles = Array.from(tasksSection.querySelectorAll('article'));
+        const articleChildren = [
+            ['div', ['task-card-label', inputs[0].value.toLowerCase().split(' ').slice(0, 2).join('-')], '', ''], 
+            ['h3', ['task-card-title'], '', ''], 
+            ['p', ['task-card-description'], '', ''],                     
+            ['div', ['task-card-points'], 'Estimated at ', ' pts'], 
+            ['div', ['task-card-assignee'], 'Assigned to: ', '']
+        ]
         article.id = `task-${articles.length + 1}`;
         article.className = 'task-card';
         tasksData[article.id] = [];
