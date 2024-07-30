@@ -39,7 +39,7 @@ function solve() {
 
   function deleteApplication(e) {
     candidatesList.appendChild(e.target.parentElement);
-    candidatesList.lastElementChild.querySelectorAll('button').forEach((element) => {
+    Array.from(candidatesList.lastElementChild.querySelectorAll('button')).forEach((element) => {
       element.remove();
     })
     submitBtn.disabled = false;    
