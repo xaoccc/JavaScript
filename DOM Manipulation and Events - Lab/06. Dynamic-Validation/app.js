@@ -1,5 +1,4 @@
 function validate() {
-    console.log('TODO:...');
     let input = document.querySelector('input');
     let pattern = /^[a-z]+@\w+.{1}[a-z]+$/
 
