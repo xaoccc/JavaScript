@@ -29,7 +29,7 @@ function solve() {
     function createNewTask() {
         let article = document.createElement('article');       
         points = Number(totalPts.textContent.match(/\d+(\.\d+)?/g));
-        totalPts.textContent = `Total points ${points + Number(document.querySelector('#points').value)}pts` 
+        totalPts.textContent = `Total Points ${points + Number(document.querySelector('#points').value)}pts` 
         articles = Array.from(tasksSection.querySelectorAll('article'));
         const articleChildren = [
             ['div', ['task-card-label', inputs[0].value.toLowerCase().split(' ').slice(0, 2).join('-')], '', ''], 
@@ -88,7 +88,7 @@ function solve() {
         articles.forEach((article) => {
             if (article.id === taskId.value) {
                 points = Number(totalPts.textContent.match(/\d+(\.\d+)?/g)) - Number(tasksData[article.id][3]);
-                totalPts.textContent = `Total points ${points}pts` 
+                totalPts.textContent = `Total Points ${points}pts` 
                 enableFields();
                 let taskToDelete = document.getElementById(taskId.value);
                 if (taskToDelete) {
