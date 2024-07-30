@@ -42,7 +42,7 @@ function solve() {
             const dataForPost = e.target.parentElement;
             publishedList.appendChild(dataForPost.cloneNode(true));
             dataForPost.remove();
-            publishedList.lastElementChild.querySelectorAll('button').forEach((button) => button.remove());
+            Array.from(publishedList.lastElementChild.querySelectorAll('button')).forEach((button) => button.remove());
         }
     })
   
