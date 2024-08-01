@@ -17,7 +17,7 @@ function solve() {
 
     addBtn.addEventListener('click', (e) => {
         if (!inputs.some((input) => !input.value.trim())) {
-            let listItem = document.createElement('li');
+            let listItem = document.createElement('div');
             listItem.classList.add('expense-item');
             createChild('article', listItem);
             createChild('div', listItem, ['buttons']);
@@ -27,6 +27,7 @@ function solve() {
                 input.value = '';
             });
             buttons.forEach((button) => createChild('button', listItem.children[1], button, button[1]));
+            listItem.querySelector('.ok').type = 'submit';
             previweList.appendChild(listItem);
             addBtn.disabled = true;
         }
@@ -42,8 +43,22 @@ function solve() {
             preview.querySelector('.expense-item').remove();
             expensesList.appendChild(e.target.parentElement.parentElement);
             expensesList.querySelector('.buttons').remove();
-            addBtn.disabled = false;
+            addBtn.disabled = false;           
+
+            let [type, amount, date] = itemObj
+
+            fetch('http://localhost:5000/add_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({type: type, amount: amount, date: date})
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
             itemObj = [];
+
         }
     })
 
