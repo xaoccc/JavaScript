@@ -50,7 +50,8 @@ function solve() {
             fetch('http://localhost:5000/add_data', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': true
                 },
                 body: JSON.stringify({type: type, amount: amount, date: date})
             })
