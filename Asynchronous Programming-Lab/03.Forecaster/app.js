@@ -42,10 +42,6 @@ function attachEvents() {
         .then((data) => {             
             createChild('div', current, ['forecasts']);
             createChild('span', current.lastElementChild, ['condition', 'symbol'], '', conditionSymbols[data.forecast.condition]);
-            // createChild('span', current.lastElementChild, ['condition']);
-            // createChild('span', current.lastElementChild.lastElementChild, ['forecast-data'], data.name);
-            // createChild('span', current.lastElementChild.lastElementChild, ['forecast-data'], '', `${data.forecast.low}&#176/${data.forecast.high}&#176`);
-            // createChild('span', current.lastElementChild.lastElementChild, ['forecast-data'], data.forecast.condition);
             createSpanEls(current, ['condition', 'forecast-data'], data.forecast, data.name, data.forecast.condition);
             return fetch(`${rootUrl}/upcoming/${city[0].code}`)})
         .then((res) => res.json())
@@ -53,12 +49,7 @@ function attachEvents() {
             console.log(data);
             createChild('div', upcoming, ['forecast-info']);
             data.forecast.forEach((day) => {
-
                 createSpanEls(upcoming, ['upcoming', 'symbol'], day, conditionSymbols[day.condition], day.condition);
-                // createChild('span', upcoming.lastElementChild, ['upcoming']);
-                // createChild('span', upcoming.lastElementChild.lastElementChild, ['symbol'], '', conditionSymbols[day.condition] );
-                // createChild('span', upcoming.lastElementChild.lastElementChild, ['forecast-data'], '', `${day.low}&#176/${day.high}&#176`);
-                // createChild('span', upcoming.lastElementChild.lastElementChild, ['forecast-data'], day.condition);
             })            
         })
         .catch((error) => forecast.textContent = 'Error');
