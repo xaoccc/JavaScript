@@ -4,10 +4,15 @@ function attachEvents() {
     const refreshBtn = document.querySelector('#refresh');
     const rootUrl = 'http://localhost:3030/jsonstore/messenger';
     const myHeaders = new Headers();
+    
     myHeaders.append("Content-Type", "application/json");
 
-
     async function sendMessage() {
+
+        if (!name.value || !message.value) {
+            alert('Please enter both author and content!');
+            return;
+        }
 
         try {
             let response = await fetch(rootUrl, {
@@ -24,24 +29,29 @@ function attachEvents() {
             } 
             name.value = '';
             message.value = '';
+            refresh();
         }
         catch (error) {
             console.error('Error posting message:', error);
         }
     }
 
-    
     async function refresh() {
-        fetch(rootUrl)
+        await fetch(rootUrl)
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            let chat = document.querySelector('#messages');            
+            let messages = []
+            Object.entries(data).forEach((entry) => {
+                messages.push(`${entry[1].author}: ${entry[1].content}`)
+            chat.value = messages.join('\n');
+        });
+        })
         .catch(error => console.log(error))
     }
-
-
+    refresh();
     submitBtn.addEventListener('click', sendMessage);
-    submitBtn.addEventListener('click', refresh);
-
+    refreshBtn.addEventListener('click', refresh);
 }
 
 attachEvents();
