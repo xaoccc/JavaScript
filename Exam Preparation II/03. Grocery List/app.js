@@ -113,6 +113,7 @@ function solve() {
                 .then((res) => res.json())
                 .then((data) => console.log(data))
                 .catch(error => console.log(error));
+                // Reloading the products list after updating an item
                 // loadProducts();
                 productName.value = '';
                 productQty.value = '';
@@ -139,7 +140,8 @@ function solve() {
     addProductBtn.addEventListener('click', (e) => {
         e.preventDefault();
         addProduct();
-        loadProducts();
+        // Reloading the products list after adding an item
+        // loadProducts();
     });
 
 }
