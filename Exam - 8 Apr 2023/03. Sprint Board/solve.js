@@ -19,7 +19,7 @@ function attachEvents() {
         return element;
     }
 
-    function moveTaskHandler(task, data, moveButton) {
+    function moveTaskHandler(task, data) {
         fetch(`${rootUrl}${task}`, {
             method: 'PATCH',
             headers: {
@@ -33,7 +33,7 @@ function attachEvents() {
         .catch((error) => console.log(error));
     }
 
-    function deleteTaskHandler(task, moveButton) {
+    function deleteTaskHandler(task) {
         fetch(`${rootUrl}${task}`, {
             method: 'DELETE'
         })
