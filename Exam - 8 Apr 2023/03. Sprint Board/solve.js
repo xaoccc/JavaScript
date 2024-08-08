@@ -19,6 +19,28 @@ function attachEvents() {
         return element;
     }
 
+    function moveTaskHandler(task, data, moveButton) {
+        fetch(`${rootUrl}${task}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                status: container[data[task].status][1].split('Move to ')[1],
+            })
+        })
+        .then(loadTasks)
+        .catch((error) => console.log(error));
+    }
+
+    function deleteTaskHandler(task, moveButton) {
+        fetch(`${rootUrl}${task}`, {
+            method: 'DELETE'
+        })
+        .then(loadTasks)
+        .catch((error) => console.log(error));
+    }
+
     function createTaskEntry(task, data) {
         const listItem = createChild('li', container[data[task].status][0], '', ['task']);
         createChild('h3', listItem, data[task].title);
@@ -27,25 +49,9 @@ function attachEvents() {
         
         moveButton.addEventListener('click', () => {
             if (moveButton.textContent !== 'Close') {
-                moveButton.textContent = container[data[task].status][1].split('Move to ')[1];
-                fetch(`${rootUrl}${task}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        status: container[data[task].status][1].split('Move to ')[1],
-                    })
-                })
-                .then(loadTasks)
-                .catch((error) => console.log(error));
+                moveTaskHandler(task, data, moveButton);
             } else if (moveButton.textContent === 'Close') {
-                moveButton.parentElement.remove();
-                fetch(`${rootUrl}${task}`, {
-                    method: 'DELETE'
-                })
-                .then(loadTasks)
-                .catch((error) => console.log(error));
+                deleteTaskHandler(task, moveButton);
             }
             
         });
