@@ -22,9 +22,6 @@ function attachEvents() {
     function moveTaskHandler(task, data) {
         fetch(`${rootUrl}${task}`, {
             method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({
                 status: container[data[task].status][1].split('Move to ')[1],
             })
