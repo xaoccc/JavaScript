@@ -19,44 +19,24 @@ function attachEvents() {
         return element;
     }
 
-    function moveTaskHandler(task, data) {
-        fetch(`${rootUrl}${task}`, {
-            method: 'PATCH',
-            body: JSON.stringify({
-                status: container[data[task].status][1].split('Move to ')[1],
-            })
-        })
-        .then(loadTasks)
-        .catch((error) => console.log(error));
-    }
-
-    function deleteTaskHandler(task) {
-        fetch(`${rootUrl}${task}`, {
-            method: 'DELETE'
-        })
-        .then(loadTasks)
-        .catch((error) => console.log(error));
-    }
-
-    function createTaskEntry(task, data) {
+    async function createTaskEntry(task, data) {
         const listItem = createChild('li', container[data[task].status][0], '', ['task']);
         createChild('h3', listItem, data[task].title);
         createChild('p', listItem, data[task].description);
         const moveButton = createChild('button', listItem, container[data[task].status][1]); 
         
-        moveButton.addEventListener('click', () => {
-            if (moveButton.textContent !== 'Close') {
-                moveTaskHandler(task, data, moveButton);
-            } else if (moveButton.textContent === 'Close') {
-                deleteTaskHandler(task, moveButton);
+        moveButton.addEventListener('click', async () => {
+            if (moveButton.textContent === 'Close') {
+                await deleteTaskHandler(task, moveButton);
+                return;
             }
-            
+            await moveTaskHandler(task, data, moveButton);            
         });
     };
 
-    function loadTasks() {
+    async function loadTasks() {
         containers.forEach((container) => container.innerHTML = '');
-        fetch(rootUrl)
+        await fetch(rootUrl)
         .then((res) => res.json())
         .then((data) => {
             for (task in data) {
@@ -66,8 +46,8 @@ function attachEvents() {
         .catch((error) => console.log(error));
     }
 
-    function addTask() {
-        fetch(rootUrl, {
+    async function addTask() {
+        await fetch(rootUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -78,20 +58,43 @@ function attachEvents() {
                 status: 'ToDo'
             })
         })
-        .then(loadTasks)
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error));        
         title.value = '';
         description.value = '';
+        await loadTasks();
     }
 
-    loadBoardBtn.addEventListener('click', (e) => {
+    async function moveTaskHandler(task, data) {
+        newStatus = container[data[task].status][1].split('Move to ')[1];
+        await fetch(`${rootUrl}${task}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                status: newStatus,
+            }),
+            headers: {
+                "Content-type": "application/json",
+            }
+        })
+        .catch((error) => console.log(error));
+        await loadTasks();
+    }
+
+    async function deleteTaskHandler(task) {
+        await fetch(`${rootUrl}${task}`, {
+            method: 'DELETE'
+        })
+        .catch((error) => console.log(error));
+        await loadTasks();
+    }
+
+    loadBoardBtn.addEventListener('click', async (e) => {
         e.preventDefault();
-        loadTasks();
+        await loadTasks();
     })
 
-    createTaskBtn.addEventListener('click', (e) => {
+    createTaskBtn.addEventListener('click', async (e) => {
         e.preventDefault();
-        addTask();
+        await addTask();
     })
 }
 
