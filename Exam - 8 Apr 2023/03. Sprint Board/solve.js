@@ -19,18 +19,18 @@ function attachEvents() {
         return element;
     }
 
-    async function createTaskEntry(task, data) {
-        const listItem = createChild('li', container[data[task].status][0], '', ['task']);
-        createChild('h3', listItem, data[task].title);
-        createChild('p', listItem, data[task].description);
-        const moveButton = createChild('button', listItem, container[data[task].status][1]); 
+    async function createTaskEntry(obj) {
+        const listItem = createChild('li', container[obj.status][0], '', ['task']);
+        createChild('h3', listItem, obj.title);
+        createChild('p', listItem, obj.description);
+        const moveButton = createChild('button', listItem, container[obj.status][1]); 
         
         moveButton.addEventListener('click', async () => {
             if (moveButton.textContent === 'Close') {
-                await deleteTaskHandler(task, moveButton);
+                await deleteTaskHandler(obj, moveButton);
                 return;
             }
-            await moveTaskHandler(task, data, moveButton);            
+            await moveTaskHandler(obj, moveButton);            
         });
     };
 
@@ -39,8 +39,8 @@ function attachEvents() {
         await fetch(rootUrl)
         .then((res) => res.json())
         .then((data) => {
-            for (task in data) {
-                createTaskEntry(task, data);
+            for (obj of Object.values(data)) {
+                createTaskEntry(obj);
             } 
         })
         .catch((error) => console.log(error));
@@ -64,9 +64,9 @@ function attachEvents() {
         await loadTasks();
     }
 
-    async function moveTaskHandler(task, data) {
-        newStatus = container[data[task].status][1].split('Move to ')[1];
-        await fetch(`${rootUrl}${task}`, {
+    async function moveTaskHandler(obj) {
+        newStatus = container[obj.status][1].split('Move to ')[1];
+        await fetch(`${rootUrl}${obj._id}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 status: newStatus,
@@ -79,8 +79,8 @@ function attachEvents() {
         await loadTasks();
     }
 
-    async function deleteTaskHandler(task) {
-        await fetch(`${rootUrl}${task}`, {
+    async function deleteTaskHandler(obj) {
+        await fetch(`${rootUrl}${obj._id}`, {
             method: 'DELETE'
         })
         .catch((error) => console.log(error));
