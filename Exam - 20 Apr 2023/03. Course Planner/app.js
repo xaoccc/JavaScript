@@ -21,14 +21,14 @@ function solve() {
         .then((res) => res.json())
         .then((data) => {
 
-            for (id in data) {
+            for (obj of Object.values(data)) {
                 const container = document.createElement('div');
                 container.classList.add('container');
-                container.id = id;
-                createChild('h2', container, [], data[id].title);
-                createChild('h3', container, [], data[id].teacher);
-                createChild('h3', container, [], data[id].type);
-                createChild('h4', container, [], data[id].description);
+                container.id = obj._id;
+                createChild('h2', container, [], obj.title);
+                createChild('h3', container, [], obj.teacher);
+                createChild('h3', container, [], obj.type);
+                createChild('h4', container, [], obj.description);
                 const editCourseBtn = createChild('button', container, ['edit-btn'], 'Edit Course');
                 const finishCourseBtn =createChild('button', container, ['finish-btn'], 'Finish Course');
                 editCourseBtn.addEventListener('click', (e) => editCourse(e));
