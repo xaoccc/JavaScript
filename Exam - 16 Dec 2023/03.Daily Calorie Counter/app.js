@@ -2,10 +2,10 @@ function solve() {
     const rootUrl = 'http://localhost:3030/jsonstore/tasks/';
 
     const container = document.querySelector('#list');
-    let [location, temp, date] = document.querySelectorAll('form input');
-    const addBtn = document.querySelector('#add-weather');
-    const editBtn = document.querySelector('#edit-weather');
-    const loadBtn = document.querySelector('#load-history');
+    let [food, time, calories] = document.querySelectorAll('form input');
+    const addBtn = document.querySelector('#add-meal');
+    const editBtn = document.querySelector('#edit-meal');
+    const loadBtn = document.querySelector('#load-meals');
 
 
     function createChild(tag, parent, classes, text, id) {
@@ -19,16 +19,16 @@ function solve() {
 
     function createEntry(obj) {
         const entryWrapper = document.createElement('div');
-        entryWrapper.classList.add('container');
+        entryWrapper.classList.add('meal');
         // Create an id for the entry, so we can easily make PUT/PATCH requests later on
         entryWrapper.id = obj._id;
-        createChild('h2', entryWrapper, [], obj.location);
-        createChild('h3', entryWrapper, [], obj.date);
-        createChild('h3', entryWrapper, [], obj.temperature, 'celsius');
+        createChild('h2', entryWrapper, [], obj.food);
+        createChild('h3', entryWrapper, [], obj.time);
+        createChild('h3', entryWrapper, [], obj.calories);
 
-        const buttonsWrapper = createChild('div', entryWrapper, ['buttons']);
-        const editEntryBtn = createChild('button', buttonsWrapper, ['change-btn'], 'Change');
-        const deleteBtn = createChild('button', buttonsWrapper, ['delete-btn'], 'Delete');
+        const buttonsWrapper = createChild('div', entryWrapper, ['buttons'], '', 'meal-buttons');
+        const editEntryBtn = createChild('button', buttonsWrapper, ['change-meal'], 'Change');
+        const deleteBtn = createChild('button', buttonsWrapper, ['delete-meal'], 'Delete');
     
         editEntryBtn.addEventListener('click', (e) => {          
             editEntry(e.target.parentElement);
@@ -45,7 +45,7 @@ function solve() {
         fetch(rootUrl)
         .then((res) => res.json())
         .then((data) => {
-
+            console.log(data);
             for (obj of Object.values(data)) {
                 createEntry(obj);
             }
@@ -57,14 +57,14 @@ function solve() {
         fetch(rootUrl, {
             method: 'POST',
             body: JSON.stringify({
-                location: location.value,
-                temperature: temp.value,
-                date: date.value,
+                food: food.value,
+                time: time.value,
+                calories: calories.value,
             })
         })
         // Clear the input fields and reload the data 
         .then(() => {
-            [location.value, temp.value, date.value] = ['', '', ''];
+            [food.value, time.value, calories.value] = ['', '', ''];
             loadData();
         })
         .catch((error) => console.log(error));
@@ -87,7 +87,7 @@ function solve() {
 
         current = Array.from(el.parentElement.children).slice(0, -1).map((el) => el.textContent);
         console.log(current);
-        [location.value, date.value, temp.value] = current;
+        [food.value, time.value, calories.value] = current;
 
         editBtn.disabled = false;
         addBtn.disabled = true;
@@ -98,15 +98,15 @@ function solve() {
                 method: 'PUT',
                 body: JSON.stringify({
                     _id: el.parentElement.id,
-                    location: location.value,
-                    temperature: temp.value,
-                    date: date.value,
+                    food: food.value,
+                    time: time.value,
+                    calories: calories.value,
                 })
             })
             .then(() => {
                 editBtn.disabled = true;
                 addBtn.disabled = false;
-                [location.value, temp.value, date.value] = ['', '', ''];
+                [food.value, time.value, calories.value] = ['', '', ''];
                 loadData();             
             })
             .catch((error) => console.log(error));            
@@ -116,4 +116,3 @@ function solve() {
 }
 
 solve();
-
