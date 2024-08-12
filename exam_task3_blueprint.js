@@ -80,9 +80,12 @@ function addEntry() {
     .catch((error) => console.log(error));
 }
 // 2.8. Add event listeners for buttons:
-// Note that edit and delete buttons are not present. The logic for them is different!
+// Note that edit and delete buttons are not present. The logic for them is different! Chek if buttons are of type submit or in a form!
 loadBtn.addEventListener('click', loadData);
-addBtn.addEventListener('click', addEntry);
+addBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    addEntry();
+});
 
 // 2.9. Delete entry:
 function deleteEntry(el) {
@@ -96,7 +99,7 @@ function deleteEntry(el) {
 function editEntry(el) {
     // Get the data from the entry and copy it to the input fields:
     current = Array.from(el.children).slice(0, ...n).map((el) => el.textContent);
-    [input1, input2, input3, ...inputN] = current;
+    [input1.value, input2.value, input3.value, ...inputN.value] = current;
     editVacationBtn.disabled = false;
     // We cannot put this eventListener elsewhere, 
     // - Because we need the el.id for the PUT/PATCH request
@@ -118,7 +121,7 @@ function editEntry(el) {
         .then(() => {
             editVacationBtn.disabled = false;
             // Clear the input fields and reload the data 
-            [input1, input2, input3, ...inputN] = ['', '', '', ...''];
+            [input1.value, input2.value, input3.value, ...inputN.value] = ['', '', '', ...''];
             loadData();             
         })
         .catch((error) => console.log(error));            
