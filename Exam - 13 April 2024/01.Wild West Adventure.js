@@ -49,8 +49,8 @@ function wildWest(input) {
     function patchUp(hero, amount) {
         if (hero) {
             if (hero[0].hp < maxHp) {
-                console.log(`${hero[0].name} patched up and recovered ${(hero[0].hp + Number(amount) > maxHp) ? maxHp - hero[0].hp : amount} HP!`);
-                (hero[0].hp + Number(amount) > maxHp) ? hero[0].hp = maxHp : hero[0].hp += Number(amount);
+                console.log(`${hero[0].name} patched up and recovered ${amount} HP!`);
+                hero[0].hp += Number(amount);
             } else {
                 console.log(`${hero[0].name} is in full health!`);
             }
