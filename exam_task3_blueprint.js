@@ -74,7 +74,7 @@ function addEntry() {
     })
     // Clear the input fields and reload the data 
     .then(() => {
-        [input1, input2, input3, ...inputN] = ['', '', '', ...''];
+        [input1.value, input2.value, input3.value, ...inputN.value] = ['', '', '', ...''];
         loadData();
     })
     .catch((error) => console.log(error));
@@ -100,7 +100,8 @@ function editEntry(el) {
     // Get the data from the entry and copy it to the input fields:
     current = Array.from(el.children).slice(0, ...n).map((el) => el.textContent);
     [input1.value, input2.value, input3.value, ...inputN.value] = current;
-    editVacationBtn.disabled = false;
+    editBtn.disabled = false;
+    addBtn.disabled = true;
     // We cannot put this eventListener elsewhere, 
     // - Because we need the el.id for the PUT/PATCH request
     // - Because it might the disabled and there is no use of eventListener for a disabled button
@@ -119,7 +120,8 @@ function editEntry(el) {
             })
         })
         .then(() => {
-            editVacationBtn.disabled = false;
+            editBtn.disabled = true;
+            addBtn.disabled = false;
             // Clear the input fields and reload the data 
             [input1.value, input2.value, input3.value, ...inputN.value] = ['', '', '', ...''];
             loadData();             
