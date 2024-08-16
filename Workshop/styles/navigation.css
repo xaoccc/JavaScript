@@ -21,16 +21,16 @@ header {
   font-family: "Creepster", system-ui;
 }
 
-nav {
- 
+nav { 
   display: flex;
-  justify-content: space-between;
-  
+  justify-content: space-between;  
 }
 
 
 #logo-img {
   height: 130px;
+    z-index: -1;
+    position: relative;
  
 }
 
@@ -90,6 +90,8 @@ footer {
  border: 10px solid black;
  padding: 0;
  height: 88vh;
+ position: relative;
+    z-index: -2;
 }
 
 #home img {

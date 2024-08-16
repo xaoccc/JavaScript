@@ -11,24 +11,24 @@
     <div id="wrapper">
       <header>
         <!-- Navigation -->
-        <a id="logo" href="#"
+        <a id="logo" href="/"
           ><img id="logo-img" src="./images/logo2.png" alt="logo"/>
         </a>
         <nav>
           <div>
-            <a href="#">Solutions</a>
+            <a href="/solutions">Solutions</a>
           </div>
 
           <!-- Logged-in users -->
           <div class="user">
-            <a href="#">Add Solution</a>
-            <a href="#">Logout</a>
+            <a href="/solution/add">Add Solution</a>
+            <a href="/logout">Logout</a>
           </div>
 
           <!-- Guest users -->
           <div class="guest">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
           </div>
         </nav>
       </header>
@@ -59,7 +59,7 @@
                 Synthetic biology involves the design and construction of
                 biological systems for useful purposes.
               </p>
-              <a class="details-btn" href="#">Learn More</a>
+              <a class="details-btn" href="/details">Learn More</a>
             </div>
           </div>
           <div class="solution">
@@ -70,7 +70,7 @@
                 Nanotechnology offers solutions for environmental cleanup due to
                 its ability to manipulate materials at the nanoscale
               </p>
-              <a class="details-btn" href="">Learn More</a>
+              <a class="details-btn" href="/details">Learn More</a>
             </div>
           </div>
           <div class="solution">
@@ -245,18 +245,19 @@
 
               <!--Edit and Delete are only for creator-->
               <div id="action-buttons">
-                <a href="#" id="edit-btn">Edit</a>
-                <a href="#" id="delete-btn">Delete</a>
+                <a href="/solution/edit" id="edit-btn">Edit</a>
+                <a href="/solution/delete" id="delete-btn">Delete</a>
 
                 <!--Bonus - Only for logged-in users ( not authors )-->
-                <a href="#" id="like-btn">Like</a>
+                <a href="/like" id="like-btn">Like</a>
               </div>
             </div>
           </div>
         </section>
       </main>
     </div>
-    <script src="script.js"></script>
+    <script type="module" src="script/script.js"></script>
+    <script type="module" src="script/render.js"></script>
     <footer>
       <p>RenewTech Cleanup</p>
     </footer>
