@@ -10,7 +10,7 @@ const routes = {
   '/solution/add': renderCreate,
   '/solution/edit': renderEdit,
   '/solution/details': renderDetails,
-  '/logout': hideSections,
+  '/logout': logOut,
 }
 
 function setUpLinks() {
@@ -32,13 +32,28 @@ function hideSections() {
   let noSolutionsH2 = document.querySelector('#no-solution');
   solutionsH2.style.display = 'none';
   noSolutionsH2.style.display = 'none';
- 
+}
+
+function logOut() {
+  hideSections();
+  localStorage.setItem('auth', ''); 
 }
 
 function setupRouter() {
+
+  routes[location.pathname]().style.display = 'flex';
+
   window.addEventListener('popstate', function(e) {
     hideSections();
-    (e.detail !== '/logout') ? routes[e.detail]().style.display = 'flex' : routes[e.detail]() ;
+    if (e.detail === '/logout') {
+      routes[e.detail]();
+    } else if (e.detail === '/solutions' || e.detail === '/') {
+      routes[e.detail]().style.display = 'flex';
+    } else {
+      routes[e.detail]().style.display = 'block';
+      routes[e.detail]().style.marginTop = '50px';
+    }
+
 
   });
   
