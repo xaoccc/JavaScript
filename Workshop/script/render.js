@@ -188,28 +188,34 @@ export function renderLogin() {
 }
 
 export function renderCreate() {
-    const [type, img, description, moreInfo, createBtn] = document.querySelectorAll('.create-form input, .create-form textarea, .create-form button');
-
-    createBtn.addEventListener('click', (e) => {
+    const createSolutionForm = document.querySelector('.create-form')
+    createSolutionForm.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        const formData = new FormData(createSolutionForm);
+
+        const type = formData.get('type');
+        const imageUrl = formData.get('image-url');
+        const description = formData.get('description');
+        const learnMore = formData.get('more-info');
 
         fetch('http://localhost:3030/data/solutions', {
             method: 'post',
             body: JSON.stringify({
-                type: type.value,
-                imageUrl: img.value,
-                description: description.value,
-                learnMore: moreInfo.value,
+                type,
+                imageUrl,
+                description,
+                learnMore,
             }),
             headers: {
                 'Content-Type': 'application/json',
                 'X-Authorization': JSON.parse(localStorage.auth).accessToken
             }
         })
-        .then((res) => res.json())
-        .then((data) => {
+        .then(res => res.json())
+        .then(data => {
             console.log(data);
-            window.dispatchEvent(new CustomEvent('popstate', {detail: '/'}));
+            console.log(data._id);
         })
         .catch((error) => console.log(error));
     })
