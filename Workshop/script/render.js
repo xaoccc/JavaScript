@@ -188,39 +188,47 @@ export function renderLogin() {
 }
 
 export function renderCreate() {
-    const createSolutionForm = document.querySelector('.create-form')
-    createSolutionForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(createSolutionForm);
-
-        const type = formData.get('type');
-        const imageUrl = formData.get('image-url');
-        const description = formData.get('description');
-        const learnMore = formData.get('more-info');
-
-        fetch('http://localhost:3030/data/solutions', {
-            method: 'post',
-            body: JSON.stringify({
-                type,
-                imageUrl,
-                description,
-                learnMore,
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Authorization': JSON.parse(localStorage.auth).accessToken
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            console.log(data._id);
-        })
-        .catch((error) => console.log(error));
-    })
+    create();
 
     return document.querySelector('#create');
+}
+
+function create() {
+    const createSolutionForm = document.querySelector('.create-form')
+
+    if (!createSolutionForm.dataset.listenerAttached) {
+
+        createSolutionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(createSolutionForm);
+
+            const type = formData.get('type');
+            const imageUrl = formData.get('image-url');
+            const description = formData.get('description');
+            const learnMore = formData.get('more-info');
+
+            fetch('http://localhost:3030/data/solutions', {
+                method: 'post',
+                body: JSON.stringify({
+                    type,
+                    imageUrl,
+                    description,
+                    learnMore,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Authorization': JSON.parse(localStorage.auth).accessToken
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                window.dispatchEvent(new CustomEvent('popstate', {detail: '/solutions'}));
+            })
+            .catch((error) => console.log(error));
+        });
+        createSolutionForm.dataset.listenerAttached = 'true';
+    }
 }
 
 export function renderEdit() {

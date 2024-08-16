@@ -53,8 +53,9 @@ function setupRouter() {
     } else if (e.detail === '/solutions' || e.detail === '/') {
       routes[e.detail]().style.display = 'flex';
     } else {
+      console.log(routes[e.detail]);
       routes[e.detail]().style.display = 'block';
-      routes[e.detail]().style.marginTop = '50px';
+      // routes[e.detail]().style.marginTop = '50px';
     }
 
 
