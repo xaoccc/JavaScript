@@ -1,4 +1,4 @@
-import { renderHome, renderCreate, renderDetails, renderEdit, renderLogin, renderRegister, renderSolutions } from './render.js';
+import { showNav, renderHome, renderCreate, renderDetails, renderEdit, renderLogin, renderRegister, renderSolutions } from './render.js';
 
 const wrapper = document.querySelector('#wrapper');
 
@@ -33,10 +33,12 @@ function hideSections() {
   solutionsH2.style.display = 'none';
   noSolutionsH2.style.display = 'none';
 }
+showNav();
 
 function logOut() {
-  hideSections();
+  hideSections();  
   localStorage.setItem('auth', ''); 
+  showNav();
 }
 
 function setupRouter() {
@@ -45,6 +47,7 @@ function setupRouter() {
 
   window.addEventListener('popstate', function(e) {
     hideSections();
+    showNav();
     if (e.detail === '/logout') {
       routes[e.detail]();
     } else if (e.detail === '/solutions' || e.detail === '/') {
