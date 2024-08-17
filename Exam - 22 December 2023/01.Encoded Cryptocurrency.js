@@ -3,7 +3,6 @@ function crypto(input){
     input.slice(1).forEach((line) => {
         let[command, ...other] = line.split('?');
         if (command === 'Buy') {
-
             console.log(`The cryptocurrency is: ${message}`);
             process.exit();
         }

@@ -1,5 +1,5 @@
 function shopping(input) {
-    items = input[0].split('!');
+    let items = input[0].split('!');
     let end = false;
     
     input.slice(1).forEach((line) => {
@@ -37,3 +37,10 @@ function shopping(input) {
     })
     console.log(items.join(', '));
 }
+
+shopping([
+    'Tomatoes!Potatoes!Bread',
+    'Unnecessary Milk',
+    'Urgent Tomatoes',
+    'Go Shopping!'
+]);
