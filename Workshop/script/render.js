@@ -31,7 +31,6 @@ function createSolution(dataEntry) {
         fetch(`http://localhost:3030/data/solutions/${dataEntry._id}`)
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             createReadMore(data);
         });
     });
@@ -42,7 +41,17 @@ function editSolution() {
     console.log('Editing Solution!')
 }
 
-function deleteSolution() {
+function deleteSolution(dataEntry) {
+    console.log(dataEntry);
+    fetch(`http://localhost:3030/data/solutions/${dataEntry._id}`, { 
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': JSON.parse(localStorage.auth).accessToken
+        }
+    })
+    .catch((error) => console.log(error));
+
     console.log('Deleting Solution!')
 }
 
@@ -63,7 +72,7 @@ function createReadMore(dataEntry) {
     createChild('span', likeH3, [], dataEntry.likes.length, 'like');
     let actionBtns = createChild('div', wrapper, [], '', 'action-buttons');
 
-    if (dataEntry._id === dataEntry._ownerId) {
+    if (JSON.parse(localStorage.auth)._id === dataEntry._ownerId) {
         let editBtn = createChild('a', actionBtns, [], 'Edit', 'edit-btn');
         editBtn.href = '/solution/edit';
         editBtn.addEventListener('click', (e) => {
@@ -74,7 +83,7 @@ function createReadMore(dataEntry) {
         deleteBtn.href = '/solution/delete';
         deleteBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            deleteSolution();
+            deleteSolution(dataEntry);
         })
     }
 
@@ -93,7 +102,7 @@ function createReadMore(dataEntry) {
 }
 
 export function showNav() {
-    console.log(localStorage.auth);
+    
     if (localStorage.auth) {
         guestNav.style.display = 'none'
         userNav.style.display = 'block'
@@ -215,6 +224,7 @@ function create() {
                     imageUrl,
                     description,
                     learnMore,
+                    _ownerId: localStorage.auth._id
                 }),
                 headers: {
                     'Content-Type': 'application/json',

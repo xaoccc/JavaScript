@@ -9,6 +9,7 @@ const routes = {
   '/login': renderLogin,
   '/solution/add': renderCreate,
   '/solution/edit': renderEdit,
+  '/solution/delete': renderSolutions,
   '/solution/details': renderDetails,
   '/logout': logOut,
 }
@@ -50,10 +51,9 @@ function setupRouter() {
     showNav();
     if (e.detail === '/logout') {
       routes[e.detail]();
-    } else if (e.detail === '/solutions' || e.detail === '/') {
+    } else if (e.detail === '/solutions' || e.detail === '/solution/delete' || e.detail === '/') {
       routes[e.detail]().style.display = 'flex';
     } else {
-      console.log(routes[e.detail]);
       routes[e.detail]().style.display = 'block';
       // routes[e.detail]().style.marginTop = '50px';
     }
